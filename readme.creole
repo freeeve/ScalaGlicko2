@@ -1,7 +1,8 @@
 == ScalaGlicko2
 This is a scala implementation of the popular Glicko2 rating calculator commonly used to compare chess skill, and other 1v1-style games.
 
-It is meant to be usable as a library from Java and Scala alike.
+It is meant to be usable as a library from Java and Scala alike. See unit tests for example usage: 
+https://github.com/wfreeman/ScalaGlicko2/blob/master/src/test/scala/com/skeweredrook/scalaglicko2/TestGlicko2.scala
 
 The implementation is as close as possible based on the example in this document:
 http://www.glicko.net/glicko/glicko2.pdf
