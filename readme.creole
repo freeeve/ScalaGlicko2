@@ -1,1 +1,7 @@
-# 
+== ScalaGlicko2
+This is a scala implementation of the popular Glicko2 rating calculator commonly used to compare chess skill, and other 1v1-style games.
+
+It is meant to be usable as a library from Java and Scala alike.
+
+The implementation is as close as possible based on the example in this document:
+http://www.glicko.net/glicko/glicko2.pdf
