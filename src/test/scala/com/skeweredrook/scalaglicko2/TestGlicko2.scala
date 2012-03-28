@@ -9,7 +9,7 @@ class Glicko2Test extends FunSuite {
     expect(0.06) { new Glicko2().volatility; }
   }
   
-  test("test convert to glicko2") {
+  test("test convert to glicko1") {
     expect(1500.0) { new Glicko2().toGlicko1().rating; }
     expect(350.0) { new Glicko2().toGlicko1().rd; }
     expect(0.06) { new Glicko2().toGlicko1().volatility; }
