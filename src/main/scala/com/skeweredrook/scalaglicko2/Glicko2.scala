@@ -1,7 +1,24 @@
+/* Copyright 2011 Wes Freeman
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.skeweredrook.scalaglicko2
 import scala.Math
 
-// companion singleton (where static values and functions go)
+/**
+ * @author Wes Freeman
+ */
 object Glicko2 {
   val Glicko2Conversion:Double = 173.7178;
   // should this be configurable somehow?
@@ -12,14 +29,26 @@ object Glicko2 {
     new Glicko2(rating / Glicko2.Glicko2Conversion, rd / Glicko2.Glicko2Conversion, volatility);
   }
 }
+/**
+ * @author Wes Freeman
+ */
 class Glicko2(var rating:Double = 1500.0/Glicko2.Glicko2Conversion, var rd:Double = 350.0/Glicko2.Glicko2Conversion, var volatility:Double = 0.06) {
-  // returns a new Glicko2 object with Glicko1 rating conversion applied
-  // this is only slightly confusing... but most people are used to the Glicko1 rating range
+
+  /** This function returns a new Glicko2 object with Glicko1
+   *  scaled rating and RD.
+   *
+   *  @return a new Glicko2 object with the Glicko1 converted rating and RD
+   */
   def toGlicko1(): Glicko2 = {
     new Glicko2(rating * Glicko2.Glicko2Conversion, rd * Glicko2.Glicko2Conversion, volatility);
   }
   
-  // accepts a list of tuples of opponent ratings: Glicko2, and result:Double (result: 0.0=loss, 0.5=draw, 1.0=win)
+  /** This function accepts a list of tuples of opponent ratings:
+   *  Glicko2, and result:Double (result: 0.0=loss, 0.5=draw, 1.0=win)
+   *
+   *  @param opponents List of Tuples[Glicko2, Double]
+   *  @return a new Glicko2 object with the new rating
+   */
   def calculateNewRating(opponents : List[(Glicko2, Double)]) : Glicko2 = {
     // step1 - set tau, system volatility constraint
     // tau set by default to 0.3
@@ -55,9 +84,8 @@ class Glicko2(var rating:Double = 1500.0/Glicko2.Glicko2Conversion, var rd:Doubl
     }
     
     // step5 - calculate new volatility
-    val ε = 0.000001;
+    val ε = 0.000001; // convergence tolerance
     def newVolatility: Double = {
-       0.059999;
        def a : Double = {
          ln(pow2(this.volatility));
        }
@@ -119,28 +147,49 @@ class Glicko2(var rating:Double = 1500.0/Glicko2.Glicko2Conversion, var rd:Doubl
     new Glicko2(newRating, newRD, newVolatility);
   }
   
+  /** This function is used to decay the RD when no games
+   *  are played during a "rating period".
+   *
+   *  @param n the number of rating periods to decay
+   *  @return a new Glicko2 object with the decayed RD
+   */
+  def decayRD(n:Int) : Glicko2 = {
+    var preRatingRD: Double = this.rd;
+    for (i <- 0 until n) {
+       // step6 - update rating deviation to new pre-rating period value (decay RD)
+       preRatingRD = sqrt(pow2(preRatingRD) + pow2(this.volatility));
+    }
+    
+    new Glicko2(this.rating, preRatingRD, this.volatility);
+  }
+  
   // more concise math functions (aliased)
-  def pow2(op:Double) : Double = {
+  private def pow2(op:Double) : Double = {
     op*op;
   }
   
-  def sqrt(op:Double) : Double = {
+  private def sqrt(op:Double) : Double = {
     Math.sqrt(op);
   }
   
-  def exp(op:Double) : Double = {
+  private def exp(op:Double) : Double = {
     Math.exp(op);
   }
   
-  def ln(op: Double) : Double = {
+  private def ln(op: Double) : Double = {
     Math.log(op);
   }
   
-  def abs(op: Double) : Double = {
+  private def abs(op: Double) : Double = {
     Math.abs(op);
   }
   // end friendlier looking math functions
   
+  /** This function returns a new Glicko2 object with Glicko1
+   *  scaled rating and RD.
+   *
+   *  @return a new Glicko2 object with the Glicko1 converted rating and RD
+   */
   override def toString(): String = {
     "rating: %1.0f, rd: %1.2f, volatility: %1.6f".format(rating, rd, volatility); 
   }
