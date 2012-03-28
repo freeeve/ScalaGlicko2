@@ -85,7 +85,11 @@ class Glicko2(var rating:Double = 1500.0/Glicko2.Glicko2Conversion, var rd:Doubl
          if(fC*fB < 0) {
            A = B;
            fA = fB;
+         } else {
+           fA = fA/2;
          }
+         B = C;
+         fB = fC;
        }
        
        exp(A/2);
@@ -137,9 +141,7 @@ class Glicko2(var rating:Double = 1500.0/Glicko2.Glicko2Conversion, var rd:Doubl
   }
   // end friendlier looking math functions
   
-  // we only want to see Glicko1 ratings
   override def toString(): String = {
-    val temp = toGlicko1();
-    "rating: %1.0f, rd: %1.2f, volatility: %1.6f".format(temp.rating, temp.rd, temp.volatility); 
+    "rating: %1.0f, rd: %1.2f, volatility: %1.6f".format(rating, rd, volatility); 
   }
 }

@@ -17,7 +17,7 @@ class Glicko2Test extends FunSuite {
   
   test("test toString") {
     expect("rating: 1500, rd: 350.00, volatility: 0.060000") {
-      new Glicko2().toString();
+      new Glicko2().toGlicko1().toString();
     }
   }
   
@@ -27,7 +27,7 @@ class Glicko2Test extends FunSuite {
       val opponents = List((Glicko2.fromGlicko1(1400.0,  30.0, 0.06), 1.0),
                            (Glicko2.fromGlicko1(1550.0, 100.0, 0.06), 0.0),
                            (Glicko2.fromGlicko1(1700.0, 300.0, 0.06), 0.0));
-      example.calculateNewRating(opponents).toString;
+      example.calculateNewRating(opponents).toGlicko1().toString;
     }
   }
 }
