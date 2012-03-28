@@ -6,6 +6,8 @@ It is meant to be usable as a library from Java and Scala alike.
 The implementation is as close as possible based on the example in this document:
 http://www.glicko.net/glicko/glicko2.pdf
 
+Thanks to Mark Glickman for his work to improve ratings calculation.
+
 == License LGPL
 Copyright 2012 Wes Freeman
 
