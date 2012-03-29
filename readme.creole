@@ -9,7 +9,7 @@ http://www.glicko.net/glicko/glicko2.pdf
 
 Thanks to Mark Glickman for his work to improve ratings calculation.
 
-== License LGPL
+== License: LGPL
 Copyright 2012 Wes Freeman
 
 This program is free software: you can redistribute it and/or modify
