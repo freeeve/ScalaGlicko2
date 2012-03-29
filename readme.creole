@@ -7,7 +7,7 @@ https://github.com/wfreeman/ScalaGlicko2/blob/master/src/test/scala/com/skewered
 The implementation is as close as possible based on the example in this document:
 http://www.glicko.net/glicko/glicko2.pdf
 
-Thanks to Mark Glickman for his work to improve ratings calculation.
+Thanks to Mark Glickman for his work to improve ratings calculation. His ratings page: http://www.glicko.net/glicko.html
 
 == License: LGPL
 Copyright 2012 Wes Freeman
