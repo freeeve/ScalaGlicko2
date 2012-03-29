@@ -4,7 +4,7 @@ This is a scala implementation of the popular Glicko2 rating calculator commonly
 It is meant to be usable as a library from Java and Scala alike. See unit tests for example usage: 
 https://github.com/wfreeman/ScalaGlicko2/blob/master/src/test/scala/com/skeweredrook/scalaglicko2/TestGlicko2.scala
 
-The implementation is as close as possible based on the example in this document:
+The implementation is as close as possible to the example in this document:
 http://www.glicko.net/glicko/glicko2.pdf
 
 Thanks to Mark Glickman for his work to improve ratings calculation. His ratings page: http://www.glicko.net/glicko.html
